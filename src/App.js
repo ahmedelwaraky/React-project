@@ -1,9 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Register from "./Register";
-import AdminDash from "./AdminDash";
+import Register from "./pages/Register";
 import Admin from "./pages/Admin";
+import Login from "./pages/Login";
 
 
 
@@ -12,7 +12,7 @@ function App() {
         <>
         <Routes>
             <Route path="/register" element={<Register/>} />
-            <Route path="/admin" element={<AdminDash/>} />
+            <Route path="/login" element={<Login/>} />
             <Route path="/Admin" element={<Admin/>} />
         </Routes>
         </>
