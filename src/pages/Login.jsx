@@ -6,14 +6,14 @@ import Exam from '../assets/images/Exams-bro.png'
 export default function Login() {
     return (
         <div>
-        <section className='login p-4'>
+        <section className='login  sec-gap'>
             <div className='exam '>
                 <img src={Exam} className="w-25" alt=''/>  
             </div>
             <div className="container">
-                <form className="form  w-75 bg-light rounded-5 p-5 align-content-center">
+                <form className="form  w-50 bg-light rounded-5 p-5 align-content-center">
                     <div className='main-img'>
-                        <img src={Logo} className="w-100" alt=''/>  
+                        <img src={Logo} className="w-75" alt=''/>  
                     </div>
                     <div className='main-header text-center mb-3'>
                         <h1>Login</h1>
