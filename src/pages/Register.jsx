@@ -1,9 +1,64 @@
-import React from 'react'
-import  '../Style/Register.css'
+import React, { useState } from 'react'
+import  '../style/Register.css'
 import Logo from '../assets/images/logo.png'
 import Exam from '../assets/images/Exams-bro.png'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+
 
 export default function Register() {
+    let [errMsg, setErrMsg] = useState("")
+    let [loading, setloading] = useState(false)
+    let baseUrl = "https://route-ecommerce.onrender.com"
+    let naviagate = useNavigate()
+
+
+    
+    let validationSchema = Yup.object(
+        {
+            firstName: Yup.string().required().min(2, "Char min 2").max(10, "max Char 10"),
+            lastName : Yup.string().required().min(2, "Char min 2").max(10, "max Char 10"),
+            email:Yup.string().required().email("Enter Valid Email"),
+            phoneNumber:Yup.string().required().matches(/^[A-Z][a-zA-Z0-9!@#$%^&*()_-]{3,16}$/, "enter valid password"),
+            password:Yup.string().required().matches(/^(010|011|015|012)[0-9]{8}$/, "enter valid Phone"),
+        }
+    )
+
+let formik =useFormik({
+    initialValues: 
+    {
+        firstName:"",
+        lastName:"",
+        email:"",
+        phoneNumber:"",
+        password:"",
+    },
+    onSubmit: (data) => {
+        sendDataRegister(data)
+    },
+})
+
+async function sendDataRegister(objData) {
+
+    setloading(true)
+    let { data } = await axios.post(`${baseUrl}/api/v1/auth/signup`, objData).catch((errrr) => {
+        console.log(errrr.response.data.errors.msg);
+        setErrMsg(errrr.response.data.errors.msg)
+        setloading(false)
+    })
+    console.log(data);
+    setloading(false)
+    if (data.message == "success") {
+      // Login
+        naviagate('/login')
+    }
+}
+
+
+
 return (
     <div>
         <section className='register sec-gap'>
@@ -11,7 +66,8 @@ return (
                 <img src={Exam} className="w-25" alt=''/>  
             </div>
             <div className="container">
-            <form className="form  w-50 bg-light rounded-5 p-5">
+
+            <form onSubmit={formik.handleSubmit} className="form  w-50 bg-light rounded-5 px-5 py-3">
                 <div className='main-img'>
                     <img src={Logo} className="w-75" alt=''/>  
                 </div>
@@ -22,7 +78,7 @@ return (
                     <div className="col-md-6">
                         <div className='firstName py-2'>
                             <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control rounded-5 " id="firstName" placeholder=""/>
+                            <input onChange={formik.handleChange} type="text" class="form-control rounded-5 " id="firstName" placeholder=""/>
                         </div>                          
                         <div className='grade py-2'>
                             <label for="gender" class="form-label">Gender</label>
@@ -48,7 +104,7 @@ return (
                     <div className="col-md-6">
                         <div className='lastName py-2'>
                             <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control rounded-5" id="lastName" placeholder=""/>
+                            <input onChange={formik.handleChange} type="text" class="form-control rounded-5" id="lastName" placeholder=""/>
                         </div>     
                         <div className='type py-2'>
                             <label for="type" class="form-label">Type</label>
@@ -66,23 +122,23 @@ return (
 
                     <div className='phoneNumber py-2'>
                         <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control rounded-5" id="phoneNumber" placeholder=""/> 
+                        <input onChange={formik.handleChange} type="tel" class="form-control rounded-5" id="phoneNumber" placeholder=""/> 
                     </div>
 
                     <div className='email py-2'>
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control rounded-5" id="email" placeholder=""/> 
+                        <input onChange={formik.handleChange} type="email" class="form-control rounded-5" id="email" placeholder=""/> 
                     </div>
                     <div className='password py-2'>
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control rounded-5" id="password" placeholder=""/> 
+                        <input onChange={formik.handleChange} type="password" class="form-control rounded-5" id="password" placeholder=""/> 
                     </div>
                 </div>
                 <div className='py-2'>
                     <span>You have an account? <a className='text-dark'>Sign in</a></span>
                 </div>
                 <div  className='signupBtn'>
-                    <button className='btn rounded-5 col-12 text-white'>Sign Up</button>
+                    <button disabled={!formik.isValid} className='btn rounded-5 col-12 text-white'>Sign Up</button>
                 </div>
                 </form>
             </div>

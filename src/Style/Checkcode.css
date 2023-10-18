@@ -1,14 +1,25 @@
+
+#otp-input{
+    text-align: center;
+    width: 50px;
+    margin: 10px 10px;
+}
+.checkbox{
+    margin: auto;
+    justify-content: center;
+}
+
 .sec-gap{
     padding: 60px 0 ;
 }
-.login {
+.checkcode {
     background-image: linear-gradient(#C89ACB, #F2E5F3);
     background-repeat: no-repeat;
-    min-height: 100%;
-    /* height: 100vh; */
+    /* min-height: 100%; */
+    height: 100vh;
     position: relative;
 }
-.login .exam img{
+.checkcode .exam img{
     position: absolute;
     bottom: 0;
     right: 0px;
@@ -25,4 +36,8 @@
 .main-img{
     max-width: 150px;
     margin: auto;
+}
+.checkcode .container .form{
+    position: relative;
+    /* top: 150px; */
 }
