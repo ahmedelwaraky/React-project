@@ -5,7 +5,9 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Checkcode from "./pages/Checkcode";
 import ForgetPassword from "./pages/ForgetPassword";
-import Usertable from "./components/Usertable";
+import TeacherTable from "./components/TeacherTable";
+import StudentTable from "./components/StudentTable";
+import NewRequest from "./components/NewRequest";
 
 
 
@@ -18,7 +20,9 @@ function App() {
             <Route path="/register" element={<Register/>} />
             <Route path="/forgetpassword" element={<ForgetPassword/>} />
             <Route path="/checkcode" element={<Checkcode/>} />
-            <Route path="/userdashboard" element={<Usertable/>} />
+            <Route path="/teachertable" element={<TeacherTable/>} />
+            <Route path="/studenttable" element={<StudentTable/>} />
+            <Route path="/newrquest" element={<NewRequest/>} />
 
         </Routes>
         </>
